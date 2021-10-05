@@ -2,5 +2,9 @@
   "name": "opentimelineio",
   "version": "0.13",
   "description": "Open Source API and interchange format for editorial timeline information.",
-  "homepage": "https://github.com/PixarAnimationStudios/OpenTimelineIO"
+  "homepage": "https://github.com/PixarAnimationStudios/OpenTimelineIO",
+  "dependencies": [
+    "optional-lite",
+    "rapidjson"
+  ]
 }
