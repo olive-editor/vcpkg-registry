@@ -14,7 +14,8 @@ jobs:
           - triplet: x86-windows
     name: Windows (${{ matrix.triplet }})
     env:
-      PACKAGES: qt5-core qt5-tools ffmpeg openimageio portaudio
+      #PACKAGES: qt5-base qt5-tools ffmpeg openimageio portaudio
+      PACKAGES: ffmpeg
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
     runs-on: windows-latest
     steps:
@@ -32,7 +33,6 @@ jobs:
 
       - name: Build from vcpkg
         shell: bash
-        working-directory: ${{ runner.workspace }}
         run: |
           $VCPKG_ROOT/vcpkg install $PACKAGES
 
