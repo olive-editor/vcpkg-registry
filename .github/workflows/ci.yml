@@ -1,0 +1,80 @@
+name: CI
+
+on: push
+
+env:
+  DOWNLOAD_TOOL: curl -fLOSs --retry 2 --retry-delay 60
+
+jobs:
+  windows:
+    strategy:
+      matrix:
+        include:
+          - triplet: x64-windows
+          - triplet: x86-windows
+    name: Windows (${{ matrix.triplet }})
+    env:
+      PACKAGES: qt5-core qt5-tools ffmpeg openimageio portaudio
+      VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      - name: Enable Developer Command Prompt (Windows)
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Set up vcpkg
+        uses: lukka/run-vcpkg@v7
+        with:
+          vcpkgGitCommitId: 2a31089e777fc187f1cc05338250b8e1810cfb52
+          setupOnly: true
+
+      - name: Build from vcpkg
+        shell: bash
+        working-directory: ${{ runner.workspace }}
+        run: |
+          $VCPKG_ROOT/vcpkg install $PACKAGES
+
+      #- name: Build OpenColorIO
+      #  shell: bash
+      #  working-directory: ${{ runner.workspace }}
+      #  run: |
+      #    git clone --branch $OCIO_VERSION https://github.com/olive-editor/OpenColorIO
+      #    cd OpenColorIO
+      #    git cherry-pick -n 0d480fb29242923edcabd87f7ab7a0af8550fb63
+      #    mkdir build
+      #    cd build
+      #    cmake .. -G "Ninja" -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DOCIO_BUILD_PYTHON=OFF -DOCIO_BUILD_APPS=OFF -DOCIO_BUILD_TESTS=OFF -DOCIO_BUILD_GPU_TESTS=OFF -DOCIO_BUILD_DOCS=OFF
+      #    ninja
+      #    ninja install
+      #    cd ..
+      #    rm -rf OpenColorIO
+
+      #- name: Build OpenTimelineIO
+      #  shell: bash
+      #  working-directory: ${{ runner.workspace }}
+      #  run: |
+      #    git clone --depth 1 https://github.com/PixarAnimationStudios/OpenTimelineIO.git
+      #    cd OpenTimelineIO
+      #    mkdir build
+      #    cd build
+      #    cmake .. -G "Ninja" -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DOTIO_PYTHON_INSTALL=OFF
+      #    ninja
+      #    ninja install
+
+      - name: Deploy
+        shell: bash
+        working-directory: ${{ runner.workspace }}
+        if: github.ref == 'refs/heads/master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRAVIS_REPO_SLUG: olive-editor/vcpkg-registry
+          TRAVIS_COMMIT: ${{ github.sha }}
+        run: |
+          cd $VCPKG_ROOT
+          vcpkg export $PACKAGES --zip
+          OUTPUT_FILE=olive-dep-$VCPKG_DEFAULT_TRIPLET.zip
+          mv vcpkg-export-*.zip $OUTPUT_FILE
+          $DOWNLOAD_TOOL https://github.com/probonopd/uploadtool/raw/master/upload.sh
+          ./upload.sh "$OUTPUT_FILE"
