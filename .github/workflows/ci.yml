@@ -14,7 +14,7 @@ jobs:
           - triplet: x86-windows
     name: Windows (${{ matrix.triplet }})
     env:
-      PACKAGES: qt5-base qt5-tools ffmpeg openimageio portaudio
+      PACKAGES: qt5-base qt5-tools ffmpeg portaudio openimageio opencolorio opentimelineio
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
     runs-on: windows-latest
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Build from vcpkg
         shell: bash
         run: |
-          $VCPKG_ROOT/vcpkg install --clean-after-build $PACKAGES
+          $VCPKG_ROOT/vcpkg install --clean-after-build --overlay-ports $GITHUB_WORKSPACE/ports $PACKAGES
 
       #- name: Build OpenColorIO
       #  shell: bash
