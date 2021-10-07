@@ -33,7 +33,7 @@ jobs:
       - name: Build from vcpkg
         shell: bash
         run: |
-          $VCPKG_ROOT/vcpkg install $PACKAGES
+          $VCPKG_ROOT/vcpkg install --clean-after-build $PACKAGES
 
       #- name: Build OpenColorIO
       #  shell: bash
