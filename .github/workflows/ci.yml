@@ -14,7 +14,7 @@ jobs:
           - triplet: x86-windows
     name: Windows (${{ matrix.triplet }})
     env:
-      PACKAGES: qt5-base qt5-tools ffmpeg portaudio openimageio opencolorio opentimelineio
+      PACKAGES: qt5-base qt5-tools ffmpeg[ass,modplug,nvcodec,x264,x265] portaudio openimageio opencolorio opentimelineio
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
     runs-on: windows-latest
     steps:
