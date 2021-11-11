@@ -11,18 +11,29 @@ jobs:
       matrix:
         include:
           - triplet: x64-windows
+            os: windows-latest
+            os-name: Windows
           - triplet: x86-windows
-    name: Windows (${{ matrix.triplet }})
+            os: windows-latest
+            os-name: Windows
+          - triplet: x64-osx
+            os: macos-10.15
+            os-name: macOS
+          - triplet: arm64-osx
+            os: macos-10.15
+            os-name: macOS
+    name: ${{ matrix.os-name }} (${{ matrix.triplet }})
     env:
       PACKAGES: qt5-base qt5-tools ffmpeg[ass,modplug,nvcodec,x264,x265] portaudio openimageio opencolorio opentimelineio
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
 
       - name: Enable Developer Command Prompt (Windows)
         uses: ilammy/msvc-dev-cmd@v1
+        if: matrix.os == 'windows-latest'
 
       - name: Set up vcpkg
         uses: lukka/run-vcpkg@v7
