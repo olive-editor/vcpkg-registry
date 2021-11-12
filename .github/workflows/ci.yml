@@ -29,10 +29,10 @@ jobs:
             pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264,x265] portaudio openimageio opencolorio opentimelineio
 
           # macOS 11.0+ (ARM64)
-          - triplet: arm64-osx
-            os: macos-11.0
-            os-name: macOS
-            pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264] portaudio openimageio opencolorio opentimelineio
+          #- triplet: arm64-osx
+          #  os: macos-11.0
+          #  os-name: macOS
+          #  pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264] portaudio openimageio opencolorio opentimelineio
     name: ${{ matrix.os-name }} (${{ matrix.triplet }})
     env:
       PACKAGES: ${{ matrix.pkgs }}
