@@ -29,9 +29,10 @@ jobs:
             pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264,x265] portaudio openimageio opencolorio opentimelineio
 
           # macOS 11.0+ (ARM64)
-          #- triplet: arm64-osx
-          #  os: macos-11.0
-          #  os-name: macOS
+          - triplet: arm64-osx
+            os: macos-11.0
+            os-name: macOS
+            pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264] portaudio openimageio opencolorio opentimelineio
     name: ${{ matrix.os-name }} (${{ matrix.triplet }})
     env:
       PACKAGES: ${{ matrix.pkgs }}
@@ -109,4 +110,5 @@ jobs:
           OUTPUT_FILE=olive-dep-$VCPKG_DEFAULT_TRIPLET.zip
           mv vcpkg-export-*.zip $OUTPUT_FILE
           $DOWNLOAD_TOOL https://github.com/probonopd/uploadtool/raw/master/upload.sh
+          chmod +x upload.sh
           ./upload.sh "$OUTPUT_FILE"
