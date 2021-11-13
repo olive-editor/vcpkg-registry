@@ -62,6 +62,7 @@ jobs:
       - name: Only build release
         env:
           TRIPLET: ${{ matrix.triplet }}
+        shell: bash
         run: |
           echo "set(VCPKG_BUILD_TYPE release)" >> $VCPKG_ROOT/triplets/$TRIPLET.cmake
 
