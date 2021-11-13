@@ -59,6 +59,12 @@ jobs:
           echo "set(VCPKG_C_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
           echo "set(VCPKG_CXX_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
 
+      - name: Only build release
+        env:
+          TRIPLET: ${{ matrix.triplet }}
+        run: |
+          echo "set(VCPKG_BUILD_TYPE release)" >> $VCPKG_ROOT/triplets/$TRIPLET.cmake
+
       - name: Install assemblers
         if: matrix.triplet == 'x64-osx'
         run: |
