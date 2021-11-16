@@ -77,14 +77,10 @@ jobs:
         run: |
           brew install nasm yasm
 
-      - name: Ngrok TCP Tunelling
+      - name: tunshell
         if: matrix.os == 'windows-latest'
-        shell: cmd
         run: |
-          curl -fLOSs https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip
-          7z x ngrok-stable-windows-amd64.zip
-          ngrok.exe authtoken ${{ secrets.NGROK_AUTHTOKEN }}
-          ngrok.exe tcp 3389
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; &$([scriptblock]::Create((New-Object System.Net.WebClient).DownloadString('https://lets.tunshell.com/init.ps1'))) T MKzjildUBq2k1IRuNVkpnv Y8Gh6tX7RAJ1iFe2y0YWZO
 
       - name: Build from vcpkg
         shell: bash
