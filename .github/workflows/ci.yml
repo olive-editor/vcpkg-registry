@@ -80,7 +80,7 @@ jobs:
       - name: tunshell
         if: matrix.os == 'windows-latest'
         run: |
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; &$([scriptblock]::Create((New-Object System.Net.WebClient).DownloadString('https://lets.tunshell.com/init.ps1'))) T MKzjildUBq2k1IRuNVkpnv Y8Gh6tX7RAJ1iFe2y0YWZO
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; &$([scriptblock]::Create((New-Object System.Net.WebClient).DownloadString('https://lets.tunshell.com/init.ps1'))) T sydDz8WdSkX8Ux2Y7pi8Jf OnLGYzMTEa2xkEEwFbzwJt
 
       - name: Build from vcpkg
         shell: bash
