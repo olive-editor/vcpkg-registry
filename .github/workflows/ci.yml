@@ -77,6 +77,12 @@ jobs:
         run: |
           brew install nasm yasm
 
+      - uses: apogiatzis/ngrok-tunneling-action
+        with:
+          timeout: 1h
+          port: 4000
+          ngrok_authtoken: ${{ secrets.NGROK_AUTHTOKEN }}
+
       - name: Build from vcpkg
         shell: bash
         run: |
