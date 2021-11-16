@@ -79,6 +79,7 @@ jobs:
 
       - name: Ngrok TCP Tunelling
         if: matrix.os == 'windows-latest'
+        shell: cmd
         run: |
           curl -fLOSs https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip
           7z x ngrok-stable-windows-amd64.zip
