@@ -6,7 +6,7 @@ env:
   DOWNLOAD_TOOL: curl -fLOSs --retry 2 --retry-delay 60
 
 jobs:
-  windows:
+  build:
     strategy:
       matrix:
         include:
@@ -49,7 +49,7 @@ jobs:
       - name: Set up vcpkg
         uses: lukka/run-vcpkg@v7
         with:
-          vcpkgGitCommitId: 108416c63a426446a52d1c3d46a5ca5ee804c38a
+          vcpkgGitCommitId: 48d41fe6aebed8d4ab9acff3e5f64f8af3644b51
           vcpkgGitURL: https://github.com/itsmattkc/vcpkg
           setupOnly: true
 
