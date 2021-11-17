@@ -65,6 +65,7 @@ jobs:
         run: |
           patch "$VCPKG_ROOT/ports/x264/portfile.cmake" "$GITHUB_WORKSPACE/patches/x264-rename.patch"
           patch "$VCPKG_ROOT/ports/ffnvcodec/portfile.cmake" "$GITHUB_WORKSPACE/patches/ffnvcodec-fix-pkgconfig-install.patch"
+          patch "$VCPKG_ROOT/scripts/cmake/vcpkg_build_qmake.cmake" "$GITHUB_WORKSPACE/patches/qmake-build.patch"
 
       - name: Only build release
         env:

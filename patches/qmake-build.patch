@@ -1,0 +1,43 @@
+diff --git a/scripts/cmake/vcpkg_build_qmake.cmake b/scripts/cmake/vcpkg_build_qmake.cmake
+index d592a2eea..1a4c78619 100644
+--- a/scripts/cmake/vcpkg_build_qmake.cmake
++++ b/scripts/cmake/vcpkg_build_qmake.cmake
+@@ -63,23 +63,25 @@ function(vcpkg_build_qmake)
+     set(targets_release "${arg_RELEASE_TARGETS}")
+ 
+     foreach(build_type IN ITEMS debug release)
+-        set(current_installed_prefix "${CURRENT_INSTALLED_DIR}${path_suffix_${build_type}}")
++        if(NOT DEFINED VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL ${build_type})
++            set(current_installed_prefix "${CURRENT_INSTALLED_DIR}${path_suffix_${build_type}}")
+ 
+-        vcpkg_add_to_path(PREPEND "${current_installed_prefix}/lib" "${current_installed_prefix}/bin")
++            vcpkg_add_to_path(PREPEND "${current_installed_prefix}/lib" "${current_installed_prefix}/bin")
+ 
+-        # We set LD_LIBRARY_PATH ENV variable to allow executing Qt tools (rcc,...) even with dynamic linking
+-        if(CMAKE_HOST_UNIX)
+-            set(ENV{LD_LIBRARY_PATH} "")
+-            vcpkg_host_path_list(APPEND ENV{LD_LIBRARY_PATH} "${current_installed_prefix}/lib" "${current_installed_prefix}/lib/manual-link")
+-        endif()
++            # We set LD_LIBRARY_PATH ENV variable to allow executing Qt tools (rcc,...) even with dynamic linking
++            if(CMAKE_HOST_UNIX)
++                set(ENV{LD_LIBRARY_PATH} "")
++                vcpkg_host_path_list(APPEND ENV{LD_LIBRARY_PATH} "${current_installed_prefix}/lib" "${current_installed_prefix}/lib/manual-link")
++            endif()
+ 
+-        vcpkg_list(SET targets ${targets_${build_type}} ${arg_TARGETS})
+-        if(NOT arg_SKIP_MAKEFILES)
+-            z_run_jom_build("${invoke_command}" qmake_all makefiles "${short_name_${build_type}}")
+-        endif()
+-        z_run_jom_build("${invoke_command}" "${targets}" "${arg_BUILD_LOGNAME}" "${short_name_${build_type}}")
++            vcpkg_list(SET targets ${targets_${build_type}} ${arg_TARGETS})
++            if(NOT arg_SKIP_MAKEFILES)
++                z_run_jom_build("${invoke_command}" qmake_all makefiles "${short_name_${build_type}}")
++            endif()
++            z_run_jom_build("${invoke_command}" "${targets}" "${arg_BUILD_LOGNAME}" "${short_name_${build_type}}")
+ 
+-        vcpkg_restore_env_variables(VARS PATH LD_LIBRARY_PATH)
++            vcpkg_restore_env_variables(VARS PATH LD_LIBRARY_PATH)
++        endif()
+     endforeach()
+ 
+     vcpkg_restore_env_variables(VARS CL _CL_)
