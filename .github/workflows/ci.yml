@@ -98,6 +98,6 @@ jobs:
           OUTPUT_FILE=olive-dep-$VCPKG_DEFAULT_TRIPLET.zip
           mv vcpkg-export-*.zip $OUTPUT_FILE
           $DOWNLOAD_TOOL https://github.com/probonopd/uploadtool/raw/master/upload.sh
-          patch upload.sh "patches/dont-use-data-binary.patch"
+          patch upload.sh "$GITHUB_WORKSPACE/patches/dont-use-data-binary.patch"
           chmod +x upload.sh
           ./upload.sh "$OUTPUT_FILE"
