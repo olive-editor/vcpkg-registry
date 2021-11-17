@@ -66,6 +66,7 @@ jobs:
           patch --forward "$VCPKG_ROOT/ports/x264/portfile.cmake" "$GITHUB_WORKSPACE/patches/x264-rename.patch" || true
           patch --forward "$VCPKG_ROOT/ports/ffnvcodec/portfile.cmake" "$GITHUB_WORKSPACE/patches/ffnvcodec-fix-pkgconfig-install.patch" || true
           patch --forward "$VCPKG_ROOT/scripts/cmake/vcpkg_build_qmake.cmake" "$GITHUB_WORKSPACE/patches/qmake-build.patch" || true
+          patch --forward "$VCPKG_ROOT/ports/ffmpeg/portfile.cmake" "$GITHUB_WORKSPACE/patches/ffmpeg-remove-dodgy.patch" || true
 
       - name: Only build release
         env:
