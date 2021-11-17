@@ -52,6 +52,7 @@ jobs:
           vcpkgGitCommitId: 48d41fe6aebed8d4ab9acff3e5f64f8af3644b51
           vcpkgGitURL: https://github.com/itsmattkc/vcpkg
           setupOnly: true
+          doNotCache: true
 
       - name: Set minimum deployment target
         if: matrix.triplet == 'x64-osx'
