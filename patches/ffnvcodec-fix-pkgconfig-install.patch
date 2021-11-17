@@ -1,0 +1,30 @@
+diff --git a/ports/ffnvcodec/portfile.cmake b/ports/ffnvcodec/portfile.cmake
+index 1b67cba6f..930e5fe30 100644
+--- a/ports/ffnvcodec/portfile.cmake
++++ b/ports/ffnvcodec/portfile.cmake
+@@ -28,8 +28,6 @@ if(VCPKG_TARGET_IS_WINDOWS)
+         WORKING_DIRECTORY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}
+         LOGNAME build-${TARGET_TRIPLET}
+     )
+-    
+-    file(INSTALL "${SOURCE_PATH}/ffnvcodec.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
+ 
+ # Linux, etc.
+ else()
+@@ -43,10 +41,14 @@ else()
+         WORKING_DIRECTORY ${SOURCE_PATH}
+         LOGNAME make-${TARGET_TRIPLET}
+     )
++endif()
+ 
+-    # FFmpeg uses pkgconfig to find ffnvcodec.pc, so install it where 
+-    # FFMpeg's call to pkgconfig expects to find it.
++# FFmpeg uses pkgconfig to find ffnvcodec.pc, so install it where
++# FFMpeg's call to pkgconfig expects to find it.
++if (NOT VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "release")
+     file(INSTALL "${SOURCE_PATH}/ffnvcodec.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/lib/pkgconfig")
++endif()
++if (NOT VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "debug")
+     file(INSTALL "${SOURCE_PATH}/ffnvcodec.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
+ endif()
+ 
