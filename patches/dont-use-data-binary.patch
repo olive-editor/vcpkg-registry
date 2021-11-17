@@ -1,0 +1,13 @@
+diff --git a/upload.sh b/upload.sh
+index 0c2d3b1..eb068b8 100644
+--- a/upload.sh
++++ b/upload.sh
+@@ -290,7 +290,7 @@ for FILE in "$@" ; do
+   curl -H "Authorization: token ${GITHUB_TOKEN}" \
+        -H "Accept: application/vnd.github.manifold-preview" \
+        -H "Content-Type: application/octet-stream" \
+-       --data-binary "@$FULLNAME" \
++       -T "$FULLNAME" \
+        "$upload_url?name=$(urlencode "$BASENAME")"
+   echo ""
+ done
