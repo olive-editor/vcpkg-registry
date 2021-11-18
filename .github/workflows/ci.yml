@@ -57,10 +57,10 @@ jobs:
       - name: Set minimum deployment target
         if: matrix.triplet == 'x64-osx'
         run: |
-          sed -i.bak "s/set(VCPKG_LIBRARY_LINKAGE static)/set(VCPKG_LIBRARY_LINKAGE dynamic)/g" $VCPKG_ROOT/triplets/community/x64-osx.cmake
-          echo "set(VCPKG_OSX_DEPLOYMENT_TARGET 10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx.cmake
-          echo "set(VCPKG_C_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx.cmake
-          echo "set(VCPKG_CXX_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx.cmake
+          sed -i.bak "s/set(VCPKG_LIBRARY_LINKAGE static)/set(VCPKG_LIBRARY_LINKAGE dynamic)/g" $VCPKG_ROOT/triplets/x64-osx.cmake
+          echo "set(VCPKG_OSX_DEPLOYMENT_TARGET 10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
+          echo "set(VCPKG_C_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
+          echo "set(VCPKG_CXX_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
 
       - name: Patches
         shell: bash
