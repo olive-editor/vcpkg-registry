@@ -23,7 +23,7 @@ jobs:
           #  pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,nvcodec,x264,x265] portaudio openimageio opencolorio opentimelineio
 
           # macOS 10.13+ (Intel)
-          - triplet: x64-osx
+          - triplet: x64-osx-dynamic
             os: macos-10.15
             os-name: macOS
             pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264,x265] portaudio openimageio opencolorio opentimelineio
