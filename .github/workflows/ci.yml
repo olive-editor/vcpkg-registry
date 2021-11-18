@@ -23,7 +23,7 @@ jobs:
           #  pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,nvcodec,x264,x265] portaudio openimageio opencolorio opentimelineio
 
           # macOS 10.13+ (Intel)
-          - triplet: x64-osx-dynamic
+          - triplet: x64-osx
             os: macos-10.15
             os-name: macOS
             pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264,x265] portaudio openimageio opencolorio opentimelineio
@@ -32,7 +32,7 @@ jobs:
           #- triplet: arm64-osx
           #  os: macos-11.0
           #  os-name: macOS
-          #  pkgs: qt5-base qt5-tools ffmpeg[ass,modplug,x264] portaudio openimageio opencolorio opentimelineio
+          #  pkgs: qt5-base qt5-tools ffmpeg[ass,modplug] portaudio openimageio opencolorio opentimelineio
     name: ${{ matrix.os-name }} (${{ matrix.triplet }})
     env:
       PACKAGES: ${{ matrix.pkgs }}
@@ -55,11 +55,12 @@ jobs:
           doNotCache: true
 
       - name: Set minimum deployment target
-        if: matrix.triplet == 'x64-osx-dynamic'
+        if: matrix.triplet == 'x64-osx'
         run: |
-          echo "set(VCPKG_OSX_DEPLOYMENT_TARGET 10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx-dynamic.cmake
-          echo "set(VCPKG_C_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx-dynamic.cmake
-          echo "set(VCPKG_CXX_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx-dynamic.cmake
+          echo "set(VCPKG_OSX_DEPLOYMENT_TARGET 10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx.cmake
+          echo "set(VCPKG_C_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx.cmake
+          echo "set(VCPKG_CXX_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/community/x64-osx.cmake
+          sed -i "s/set(VCPKG_LIBRARY_LINKAGE static)/set(VCPKG_LIBRARY_LINKAGE dynamic)/g" x64-osx.cmake
 
       - name: Patches
         shell: bash
@@ -77,7 +78,7 @@ jobs:
           echo "set(VCPKG_BUILD_TYPE release)" >> $VCPKG_ROOT/triplets/$TRIPLET.cmake
 
       - name: Install assemblers
-        if: matrix.triplet == 'x64-osx-dynamic'
+        if: matrix.triplet == 'x64-osx'
         run: |
           brew install nasm yasm
 
