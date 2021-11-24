@@ -21,9 +21,9 @@ jobs:
             os-name: macOS
 
           # macOS 11.0+ (ARM64)
-          - triplet: arm64-osx
-            os: macos-11.0
-            os-name: macOS
+          #- triplet: arm64-osx
+          #  os: macos-11.0
+          #  os-name: macOS
     name: ${{ matrix.os-name }} (${{ matrix.triplet }})
     env:
       PACKAGES: qt5-base qt5-tools ffmpeg[x264,x265,modplug,vorbis,opus,webp,vpx,gpl,version3,mp3lame,theora] portaudio openimageio opencolorio opentimelineio
