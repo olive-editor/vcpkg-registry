@@ -16,9 +16,9 @@ jobs:
             os-name: Windows
 
           # macOS 10.13+ (Intel)
-          - triplet: x64-osx
-            os: macos-10.15
-            os-name: macOS
+          #- triplet: x64-osx
+          #  os: macos-10.15
+          #  os-name: macOS
 
           # macOS 11.0+ (ARM64)
           #- triplet: arm64-osx
@@ -51,6 +51,10 @@ jobs:
           echo "set(VCPKG_OSX_DEPLOYMENT_TARGET 10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
           echo "set(VCPKG_C_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
           echo "set(VCPKG_CXX_FLAGS -mmacosx-version-min=10.13)" >> $VCPKG_ROOT/triplets/x64-osx.cmake
+          echo "CFLAGS=-mmacosx-version-min=10.13" >> $GITHUB_ENV
+          echo "CXXFLAGS=-mmacosx-version-min=10.13" >> $GITHUB_ENV
+          echo "LDFLAGS=-mmacosx-version-min=10.13" >> $GITHUB_ENV
+          echo "MACOSX_DEPLOYMENT_TARGET=10.13" >> $GITHUB_ENV
 
       - name: Patches
         shell: bash
