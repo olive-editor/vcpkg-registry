@@ -1,23 +1,22 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO PixarAnimationStudios/OpenTimelineIO
-    REF v0.13
-    SHA512 2e11fa46e0fbb17568c578fc9619a2e9e2fdb9beb6838878f803ceb68754023d68a9c591f5c9308b5f557460beeae51c4374b970e9e63b74fb87be47221bd6b3
+    REF v0.14
+    SHA512 ddc6a2ffb84d773c4cc44aaba90dfd6e351a2aecaa5411de6fa1ca92bb8b9c1d87fdf03ea31777bb7f65c7a51f88f166bbe1470ac54c81c8852622ad74c0125e
     HEAD_REF master
     PATCHES
-        remove-pybind.patch
-        set-archive-dst.patch
+        set-runtime-dst.patch
 )
 
 vcpkg_download_distfile(ANY
     URLS
-        "https://github.com/thelink2012/any/archive/refs/heads/master.zip"
-    FILENAME "any-master.zip"
-    SHA512 54466355837c1a723fbc425c441779fd5e2aeb885826181c8c2d6ab99e03bd8e009454fe941101194825051228dd9be2e03f34457106c49b4baff3601c314b8c
+        "https://github.com/thelink2012/any/archive/f67bd5f8bbf7eb628bf38206d4ac5cb22438e6bb.zip"
+    FILENAME "any-f67bd5f8bbf7eb628bf38206d4ac5cb22438e6bb.zip"
+    SHA512 36e1570aebda67f338ce761c7e88db29ee424fe6e088378a7a4106047198cef750f7ed385b24cc95c966a07b0f1b6aa52e07038559d30faee4ab6a4cbd6212ac
 )
 vcpkg_extract_source_archive(${ANY} ${SOURCE_PATH}/src/deps)
 file(REMOVE_RECURSE ${SOURCE_PATH}/src/deps/any)
-file(RENAME ${SOURCE_PATH}/src/deps/any-master ${SOURCE_PATH}/src/deps/any)
+file(RENAME ${SOURCE_PATH}/src/deps/any-f67bd5f8bbf7eb628bf38206d4ac5cb22438e6bb ${SOURCE_PATH}/src/deps/any)
 
 vcpkg_download_distfile(OPTIONAL_LITE
     URLS
@@ -56,8 +55,6 @@ vcpkg_copy_pdbs()
 file(REMOVE_RECURSE
     ${CURRENT_PACKAGES_DIR}/debug/include
     ${CURRENT_PACKAGES_DIR}/debug/share
-    ${CURRENT_PACKAGES_DIR}/debug/OpenTimelineIOConfig.cmake
-    ${CURRENT_PACKAGES_DIR}/OpenTimelineIOConfig.cmake
 )
 
 file(INSTALL "${SOURCE_PATH}/LICENSE.txt" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
