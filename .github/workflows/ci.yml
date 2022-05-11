@@ -40,7 +40,7 @@ jobs:
       - name: Set up vcpkg
         uses: lukka/run-vcpkg@v7
         with:
-          vcpkgGitCommitId: 3b9d88d70abc29f58d0ec9d24bed6346de123b38
+          vcpkgGitCommitId: 74ff2a04415691361b07b7dbd1d4762ad79bd82c
           setupOnly: true
           doNotCache: true
 
