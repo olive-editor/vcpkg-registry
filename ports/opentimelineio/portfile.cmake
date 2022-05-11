@@ -42,6 +42,7 @@ vcpkg_configure_cmake(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DOTIO_PYTHON_INSTALL:BOOL=OFF
+        -DCMAKE_CXX_STANDARD=17
         ${FEATURE_OPTIONS}
 )
 
