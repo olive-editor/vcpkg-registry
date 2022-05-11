@@ -78,6 +78,7 @@ jobs:
       - name: Build from vcpkg
         shell: bash
         run: |
+          $VCPKG_ROOT/vcpkg install --clean-after-build --overlay-ports $GITHUB_WORKSPACE/ports opentimelineio
           $VCPKG_ROOT/vcpkg install --clean-after-build --overlay-ports $GITHUB_WORKSPACE/ports $PACKAGES
 
       - name: Deploy

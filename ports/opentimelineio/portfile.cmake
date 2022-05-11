@@ -1,9 +1,9 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO PixarAnimationStudios/OpenTimelineIO
-    REF v0.14
-    SHA512 ddc6a2ffb84d773c4cc44aaba90dfd6e351a2aecaa5411de6fa1ca92bb8b9c1d87fdf03ea31777bb7f65c7a51f88f166bbe1470ac54c81c8852622ad74c0125e
-    HEAD_REF master
+    REF v0.14.1
+    SHA512 c70103dcea5d6efc733a1cd2b7661ea8f709b1ea4b2b8bf404c8d7a22a9cae8f5e99a61adc1ddfa025459b08d7cf227791db5357a832b066c569665359c1f40a
+    HEAD_REF main
     PATCHES
         set-runtime-dst.patch
 )
