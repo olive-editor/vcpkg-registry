@@ -27,6 +27,7 @@ jobs:
     name: ${{ matrix.os-name }} (${{ matrix.triplet }})
     env:
       PACKAGES: qt5-base qt5-tools ffmpeg[x264,x265,modplug,vorbis,opus,webp,vpx,gpl,version3,mp3lame,theora] portaudio openimageio opencolorio opentimelineio
+      DEPLOY_PACKAGES: qt5-base qt5-tools ffmpeg portaudio openimageio opencolorio opentimelineio
       VCPKG_DEFAULT_TRIPLET: ${{ matrix.triplet }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -78,7 +79,6 @@ jobs:
       - name: Build from vcpkg
         shell: bash
         run: |
-          $VCPKG_ROOT/vcpkg install --clean-after-build --overlay-ports $GITHUB_WORKSPACE/ports opentimelineio
           $VCPKG_ROOT/vcpkg install --clean-after-build --overlay-ports $GITHUB_WORKSPACE/ports $PACKAGES
 
       - name: Deploy
@@ -91,7 +91,7 @@ jobs:
           TRAVIS_COMMIT: ${{ github.sha }}
         run: |
           cd $VCPKG_ROOT
-          vcpkg export $PACKAGES --zip
+          vcpkg export $DEPLOY_PACKAGES --zip
           OUTPUT_FILE=olive-dep-$VCPKG_DEFAULT_TRIPLET.zip
           mv vcpkg-export-*.zip $OUTPUT_FILE
           $DOWNLOAD_TOOL https://github.com/probonopd/uploadtool/raw/master/upload.sh
