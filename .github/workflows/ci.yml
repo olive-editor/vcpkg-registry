@@ -17,7 +17,7 @@ jobs:
 
           # macOS 10.13+ (Intel)
           #- triplet: x64-osx
-          #  os: macos-10.15
+          #  os: macos-11.0
           #  os-name: macOS
 
           # macOS 11.0+ (ARM64)
@@ -32,7 +32,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Enable Developer Command Prompt (Windows)
         if: matrix.os == 'windows-latest'
